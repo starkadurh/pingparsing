@@ -63,7 +63,7 @@ class PingParser(PingParserInterface):
             if reply.get("timestamp"):
                 reply["timestamp"] = datetime.fromtimestamp(
                     Integer(reply["timestamp"].lstrip("[").rstrip("]")).force_convert()
-                )
+                ).replace(microsecond=Integer(reply["timestamp"].lstrip("[").rstrip("]").split('.')[-1]).force_convert())
 
             if reply.get("icmp_seq"):
                 reply["icmp_seq"] = int(reply["icmp_seq"])
